@@ -16,5 +16,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  }
+  },
+  "devDependencies": {
+  "eslint-plugin-react-hooks": "^4.6.0"
 }
+}
+
