@@ -18,9 +18,9 @@ export default function ScenariosScreen() {
 
   const [selectedLevel, setSelectedLevel] = useState(0);
 
-  useEffect(() => {
-  fetchScenarios();
-}, []);
+    useEffect(() => {
+    fetchScenarios();
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     setSelectedLevel(currentLevelIndex || 0);
@@ -320,4 +320,5 @@ const levelBtn = (isSelected, completed) => ({
   flexDirection: "column",
   alignItems: "flex-start",
 });
+
 
