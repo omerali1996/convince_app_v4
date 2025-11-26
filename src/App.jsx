@@ -4,7 +4,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import WelcomeScreen from "./components/WelcomeScreen";
 import ScenariosScreen from "./components/ScenarioScreen";
 import GameScreen from "./components/GameScreen";
-import ResultScreen from "./components/ResultScreen";
+import ResultScreen from "./components/ResultScreen"; // ✅
 import { AnimatePresence, motion } from "framer-motion";
 
 const variants = {
