@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GameProvider, useGame } from "./context/GameContext";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import WelcomeScreen from "./components/WelcomeScreen";
@@ -22,8 +22,15 @@ const variants = {
 };
 
 function ScreenSwitcher() {
-  const { screen } = useGame();
+  const { screen, setScreen } = useGame();
   const { user, checking } = useAuth();
+
+  // 🔥 Google ile login (veya zaten login) ise Welcome'ı atla → direkt senaryolar
+  useEffect(() => {
+    if (!checking && user && screen === "welcome") {
+      setScreen("scenarios");
+    }
+  }, [checking, user, screen, setScreen]);
 
   const render = () => {
     if (screen === "welcome") return <WelcomeScreen />;
