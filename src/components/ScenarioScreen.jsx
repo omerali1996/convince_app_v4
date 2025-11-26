@@ -13,6 +13,7 @@ export default function ScenariosScreen() {
     getLevelScenarios,
     levelProgress,
     startLevel,
+    startScenario,     // 🔥 YENİ: context’ten al
     currentLevelIndex,
   } = useGame();
 
@@ -142,23 +143,48 @@ export default function ScenariosScreen() {
                   <div style={storyText}>
                     <strong>Senaryolar:</strong>
                     <ul style={{ marginTop: 8, paddingLeft: 18 }}>
-                      {levelScenarios.map((s) => {
+                      {levelScenarios.map((s, sIdx) => {
                         const isExpanded =
                           expandedScenarioIds.includes(s.id);
 
                         return (
                           <li
                             key={s.id}
-                            style={{ marginBottom: 10 }}
+                            style={{ marginBottom: 12 }}
                           >
                             <div
                               style={{
-                                fontWeight: 600,
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                gap: 8,
                                 marginBottom: 4,
                               }}
                             >
-                              {s.name}
+                              <div
+                                style={{
+                                  fontWeight: 600,
+                                  flex: 1,
+                                }}
+                              >
+                                {s.name}
+                              </div>
+                              {/* 🔥 Bu senaryoyu direkt başlat */}
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                style={playScenarioBtn}
+                                onClick={() =>
+                                  startScenario(
+                                    selectedLevel,
+                                    sIdx
+                                  )
+                                }
+                              >
+                                Bu senaryoyu oyna
+                              </button>
                             </div>
+
                             <div
                               style={{
                                 fontSize: 13,
@@ -205,7 +231,7 @@ export default function ScenariosScreen() {
                       ? "Bu seviyeyi tekrar oyna"
                       : lp.playedCount > 0
                       ? "Bu seviyeyi baştan oyna"
-                      : "Bu seviyeyi oyna"}
+                      : "Bu seviyeyi oyna (1. senaryodan)"}
                   </button>
                 </div>
 
@@ -359,4 +385,10 @@ const showMoreBtn = {
   cursor: "pointer",
   textDecoration: "underline",
   alignSelf: "flex-start",
+};
+
+const playScenarioBtn = {
+  fontSize: 11,
+  padding: "6px 10px",
+  borderRadius: 999,
 };
