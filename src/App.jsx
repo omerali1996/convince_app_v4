@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { GameProvider, useGame } from "./context/GameContext";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import WelcomeScreen from "./components/WelcomeScreen";
 import ScenariosScreen from "./components/ScenarioScreen";
 import GameScreen from "./components/GameScreen";
-import ResultScreen from "./components/ResultScreen"; // ✅ YENİ
+import ResultScreen from "./components/ResultScreen";
 import { AnimatePresence, motion } from "framer-motion";
 
 const variants = {
@@ -22,40 +22,14 @@ const variants = {
 };
 
 function ScreenSwitcher() {
-  const {
-    screen,
-    setScreen,
-    fetchScenarios,
-    startGame,
-  } = useGame();
+  const { screen } = useGame();
   const { user, checking } = useAuth();
-  const didAutoRouteRef = useRef(false);
-
-  // Google login sonrası otomatik senaryo ekranına yönlendirme
-  useEffect(() => {
-    if (checking) return;
-    if (didAutoRouteRef.current) return;
-
-    if (user && screen === "welcome") {
-      didAutoRouteRef.current = true;
-      (async () => {
-        await fetchScenarios();
-        startGame(); // "scenarios"
-      })();
-    }
-  }, [
-    user,
-    checking,
-    screen,
-    fetchScenarios,
-    startGame,
-  ]);
 
   const render = () => {
     if (screen === "welcome") return <WelcomeScreen />;
     if (screen === "scenarios") return <ScenariosScreen />;
     if (screen === "game") return <GameScreen />;
-    if (screen === "result") return <ResultScreen />; // ✅
+    if (screen === "result") return <ResultScreen />;
     return null;
   };
 
@@ -74,10 +48,7 @@ function ScreenSwitcher() {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={
-              screen +
-              (checking ? "-checking" : "-ready")
-            }
+            key={screen + (checking ? "-checking" : "-ready")}
             variants={variants}
             initial="initial"
             animate="enter"
