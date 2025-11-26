@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 export default function ScenariosScreen() {
   const {
     scenarios,
+    fetchScenarios,
     loading,
     error,
     getLevelScenarios,
@@ -18,7 +19,10 @@ export default function ScenariosScreen() {
   const [selectedLevel, setSelectedLevel] = useState(0);
   const [expandedScenarioIds, setExpandedScenarioIds] = useState([]);
 
-  // Artık fetchScenarios burada çağrılmıyor; senaryolar GameContext.startGame içinde yükleniyor.
+  // EKRAN AÇILINCA SENARYOLARI YÜKLE
+  useEffect(() => {
+    fetchScenarios();
+  }, [fetchScenarios]);
 
   useEffect(() => {
     setSelectedLevel(currentLevelIndex || 0);
