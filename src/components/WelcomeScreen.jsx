@@ -93,13 +93,13 @@ Hazırsan, oyun başlasın. 🧠💥`;
     };
   }, []);
 
-  // Misafir akışı
-  const handleGuestStart = async () => {
+  // Misafir & Google: aynı start handler
+  const handleStart = async () => {
     stopKeySound();
     try {
       await fetchScenarios();
     } finally {
-      startGame();
+      startGame(); // screen = "scenarios" → Seviye ekranı
     }
   };
 
@@ -177,30 +177,26 @@ Hazırsan, oyun başlasın. 🧠💥`;
             transition={{ duration: 0.45, ease: "easeOut" }}
             style={actionsCol}
           >
+            {/* Giriş yoksa Google butonu göster */}
             {!user && (
-              <button onClick={loginWithGoogle} className="btn btn-secondary" style={googleBtn}>
+              <button
+                onClick={loginWithGoogle}
+                className="btn btn-secondary"
+                style={googleBtn}
+              >
                 <GoogleG size={18} />
                 <span>Google ile giriş yap</span>
               </button>
             )}
 
-            {user ? (
-              <button
-                onClick={startGame}
-                className="btn btn-primary"
-                style={primaryFull}
-              >
-                Oynamaya Başla
-              </button>
-            ) : (
-              <button
-                onClick={handleGuestStart}
-                className="btn btn-primary"
-                style={primaryFull}
-              >
-                Misafir olarak oyna
-              </button>
-            )}
+            {/* Her iki durumda da aynı start handler */}
+            <button
+              onClick={handleStart}
+              className="btn btn-primary"
+              style={primaryFull}
+            >
+              {user ? "Oynamaya Başla" : "Misafir olarak oyna"}
+            </button>
           </motion.div>
         )}
       </motion.div>
@@ -294,7 +290,8 @@ const subtitle = {
   minHeight: 360,
   textAlign: "left",
   whiteSpace: "pre-wrap",
-  fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+  fontFamily:
+    "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
 };
 
 const cursor = {
