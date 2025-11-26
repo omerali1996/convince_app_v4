@@ -17,8 +17,9 @@ export default function ScenariosScreen() {
   } = useGame();
 
   const [selectedLevel, setSelectedLevel] = useState(0);
+  const [expandedScenarioIds, setExpandedScenarioIds] = useState([]);
 
-    useEffect(() => {
+  useEffect(() => {
     fetchScenarios();
   }, []); // eslint-disable-line
 
@@ -26,15 +27,17 @@ export default function ScenariosScreen() {
     setSelectedLevel(currentLevelIndex || 0);
   }, [currentLevelIndex]);
 
+  // Seviye değiştiğinde "daha fazla göster" durumlarını sıfırla
+  useEffect(() => {
+    setExpandedScenarioIds([]);
+  }, [selectedLevel]);
+
   if (loading) return <div style={status}>Yükleniyor…</div>;
   if (error) return <div style={status}>{error}</div>;
   if (!scenarios.length) return <div style={status}>Senaryo bulunamadı.</div>;
 
   const levelCount = Math.ceil(scenarios.length / 5);
-  const levelIndexes = Array.from(
-    { length: levelCount },
-    (_, i) => i
-  );
+  const levelIndexes = Array.from({ length: levelCount }, (_, i) => i);
 
   const levelScenarios = getLevelScenarios(selectedLevel);
   const lp = levelProgress[selectedLevel] || {
@@ -49,6 +52,14 @@ export default function ScenariosScreen() {
 
   const handleStartLevel = () => {
     startLevel(selectedLevel);
+  };
+
+  const toggleScenarioExpand = (id) => {
+    setExpandedScenarioIds((prev) =>
+      prev.includes(id)
+        ? prev.filter((x) => x !== id)
+        : [...prev, id]
+    );
   };
 
   return (
@@ -125,45 +136,63 @@ export default function ScenariosScreen() {
                   </p>
                   <hr
                     style={{
-                      borderColor:
-                        "rgba(255,255,255,0.08)",
+                      borderColor: "rgba(255,255,255,0.08)",
                       margin: "8px 0 10px",
                     }}
                   />
                   <div style={storyText}>
                     <strong>Senaryolar:</strong>
                     <ul style={{ marginTop: 8, paddingLeft: 18 }}>
-                      {levelScenarios.map((s) => (
-                        <li
-                          key={s.id}
-                          style={{ marginBottom: 8 }}
-                        >
-                          <div
-                            style={{
-                              fontWeight: 600,
-                              marginBottom: 4,
-                            }}
+                      {levelScenarios.map((s) => {
+                        const isExpanded =
+                          expandedScenarioIds.includes(s.id);
+
+                        return (
+                          <li
+                            key={s.id}
+                            style={{ marginBottom: 10 }}
                           >
-                            {s.name}
-                          </div>
-                          <div
-                            style={{
-                              fontSize: 13,
-                              opacity: 0.9,
-                              maxHeight: 80,
-                              overflow: "hidden",
-                              maskImage:
-                                "linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0))",
-                            }}
-                          >
-                            <ReactMarkdown
-                              remarkPlugins={[remarkGfm]}
+                            <div
+                              style={{
+                                fontWeight: 600,
+                                marginBottom: 4,
+                              }}
                             >
-                              {s.story}
-                            </ReactMarkdown>
-                          </div>
-                        </li>
-                      ))}
+                              {s.name}
+                            </div>
+                            <div
+                              style={{
+                                fontSize: 13,
+                                opacity: 0.9,
+                                maxHeight: isExpanded ? "none" : 80,
+                                overflow: "hidden",
+                                maskImage: isExpanded
+                                  ? "none"
+                                  : "linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0))",
+                              }}
+                            >
+                              <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                              >
+                                {s.story}
+                              </ReactMarkdown>
+                            </div>
+                            {s.story && s.story.trim().length > 0 && (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  toggleScenarioExpand(s.id)
+                                }
+                                style={showMoreBtn}
+                              >
+                                {isExpanded
+                                  ? "Daha az göster"
+                                  : "Daha fazla göster"}
+                              </button>
+                            )}
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 </div>
@@ -321,4 +350,14 @@ const levelBtn = (isSelected, completed) => ({
   alignItems: "flex-start",
 });
 
-
+const showMoreBtn = {
+  marginTop: 4,
+  fontSize: 12,
+  background: "transparent",
+  border: "none",
+  padding: 0,
+  color: "var(--accent)",
+  cursor: "pointer",
+  textDecoration: "underline",
+  alignSelf: "flex-start",
+};
