@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import { BACKEND_URL } from "../api";
 
 export default function WelcomeScreen() {
-  const { startGame, fetchScenarios } = useGame();
+  const { startGame } = useGame(); // 👈 fetchScenarios buradan kaldırıldı, tek giriş noktası: startGame
   const { user, checking, logout } = useAuth();
 
   const [displayedText, setDisplayedText] = useState("");
@@ -93,14 +93,12 @@ Hazırsan, oyun başlasın. 🧠💥`;
     };
   }, []);
 
-  // Misafir & Google: aynı start handler
-  const handleStart = async () => {
+  // Misafir & Google: aynı start handler → her zaman seviye ekranına gider
+  const handleStart = () => {
     stopKeySound();
-    try {
-      await fetchScenarios();
-    } finally {
-      startGame(); // screen = "scenarios" → Seviye ekranı
-    }
+    // Senaryolar ScenariosScreen içindeki useEffect ile yüklenecek
+    // Böylece misafir / Google fark etmeksizin aynı akış kullanılıyor
+    startGame(); // screen = "scenarios"
   };
 
   // Google login
@@ -189,7 +187,7 @@ Hazırsan, oyun başlasın. 🧠💥`;
               </button>
             )}
 
-            {/* Her iki durumda da aynı start handler */}
+            {/* Her iki durumda da tamamen aynı start handler */}
             <button
               onClick={handleStart}
               className="btn btn-primary"
@@ -217,7 +215,7 @@ function GoogleG({ size = 18 }) {
       <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303C33.602 32.909 29.231 36 24 36c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.153 7.961 3.039l5.657-5.657C34.909 6.053 29.73 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20c10.494 0 19.09-7.594 19.09-20 0-1.341-.147-2.652-.479-3.917z"/>
       <path fill="#FF3D00" d="M6.306 14.691l6.571 4.818C14.532 15.272 18.912 12 24 12c3.059 0 5.842 1.153 7.961 3.039l5.657-5.657C34.909 6.053 29.73 4 24 4c-7.938 0-14.754 4.632-17.694 10.691z"/>
       <path fill="#4CAF50" d="M24 44c5.157 0 9.868-1.976 13.409-5.186l-6.19-5.238C29.22 35.131 26.769 36 24 36c-5.211 0-9.569-3.075-11.292-7.448l-6.51 5.017C9.095 39.37 16.034 44 24 44z"/>
-      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-1.085 3.094-3.362 5.501-6.084 7.073l.001-.001 6.19 5.238C37.06 41.698 40 36.5 40 28c0-2.708-.153-4.73-.389-7.917z"/>
+      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-1.085 3.094-3.362 5.501-6.084 7.073l-.001-.001 6.19 5.238C37.06 41.698 40 36.5 40 28c0-2.708-.153-4.73-.389-7.917z"/>
     </svg>
   );
 }
