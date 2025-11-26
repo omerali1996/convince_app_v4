@@ -19,17 +19,15 @@ export default function ScenariosScreen() {
   const [selectedLevel, setSelectedLevel] = useState(0);
   const [expandedScenarioIds, setExpandedScenarioIds] = useState([]);
 
-  // Senaryoları çek (misafir / Google fark etmez)
   useEffect(() => {
     fetchScenarios();
   }, []); // eslint-disable-line
 
-  // currentLevelIndex değişince seçili level’i güncelle
   useEffect(() => {
     setSelectedLevel(currentLevelIndex || 0);
   }, [currentLevelIndex]);
 
-  // Level değiştiğinde “daha fazla göster” durumlarını sıfırla
+  // Seviye değiştiğinde "daha fazla göster" durumlarını sıfırla
   useEffect(() => {
     setExpandedScenarioIds([]);
   }, [selectedLevel]);
@@ -120,14 +118,19 @@ export default function ScenariosScreen() {
                 transition={{ duration: 0.25 }}
                 style={detailCard}
               >
-                <h3 style={scenarioTitle}>Seviye {selectedLevel + 1}</h3>
+                <h3 style={scenarioTitle}>
+                  Seviye {selectedLevel + 1}
+                </h3>
 
                 <div style={storyBox}>
                   <h4 style={storyHeader}>📖 Bu seviyede</h4>
                   <p style={storyText}>
-                    Bu seviyede <strong>{totalInLevel}</strong> senaryo
-                    oynayacaksın. En az <strong>{neededSuccess}</strong>{" "}
-                    senaryoyu başarıyla tamamlarsan seviye geçmiş sayılacaksın.
+                    Bu seviyede{" "}
+                    <strong>{totalInLevel}</strong> senaryo
+                    oynayacaksın. En az{" "}
+                    <strong>{neededSuccess}</strong>{" "}
+                    senaryoyu başarıyla tamamlarsan seviye
+                    geçmiş sayılacaksın.
                   </p>
                   <hr
                     style={{
@@ -139,9 +142,14 @@ export default function ScenariosScreen() {
                     <strong>Senaryolar:</strong>
                     <ul style={{ marginTop: 8, paddingLeft: 18 }}>
                       {levelScenarios.map((s) => {
-                        const isExpanded = expandedScenarioIds.includes(s.id);
+                        const isExpanded =
+                          expandedScenarioIds.includes(s.id);
+
                         return (
-                          <li key={s.id} style={{ marginBottom: 10 }}>
+                          <li
+                            key={s.id}
+                            style={{ marginBottom: 10 }}
+                          >
                             <div
                               style={{
                                 fontWeight: 600,
@@ -161,14 +169,18 @@ export default function ScenariosScreen() {
                                   : "linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0))",
                               }}
                             >
-                              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                              <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                              >
                                 {s.story}
                               </ReactMarkdown>
                             </div>
                             {s.story && s.story.trim().length > 0 && (
                               <button
                                 type="button"
-                                onClick={() => toggleScenarioExpand(s.id)}
+                                onClick={() =>
+                                  toggleScenarioExpand(s.id)
+                                }
                                 style={showMoreBtn}
                               >
                                 {isExpanded
@@ -211,7 +223,9 @@ export default function ScenariosScreen() {
                 </div>
               </motion.div>
             ) : (
-              <div style={emptyDetail}>Bir seviye seçin.</div>
+              <div style={emptyDetail}>
+                Bir seviye seçin.
+              </div>
             )}
           </AnimatePresence>
         </div>
