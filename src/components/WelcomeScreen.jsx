@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import { BACKEND_URL } from "../api";
 
 export default function WelcomeScreen() {
-  const { startGame } = useGame(); // 👈 Artık tek giriş noktası
+  const { startGame } = useGame();
   const { user, checking, logout } = useAuth();
 
   const [displayedText, setDisplayedText] = useState("");
@@ -94,9 +94,9 @@ Hazırsan, oyun başlasın. 🧠💥`;
   }, []);
 
   // Misafir & Google: aynı start handler → her zaman seviye ekranına gider
-  const handleStart = async () => {
+  const handleStart = () => {
     stopKeySound();
-    await startGame(); // GameContext içinde senaryolar yüklenecek ve screen="scenarios" olacak
+    startGame(); // screen = "scenarios"
   };
 
   // Google login
