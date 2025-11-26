@@ -25,9 +25,6 @@ export function GameProvider({ children }) {
   // levelProgress: [{ successCount, playedCount, completed }, ...]
   const [levelProgress, setLevelProgress] = useState([]);
 
-  // Oyuna başla → her zaman level ekranına gitsin
-  const startGame = useCallback(() => setScreen("scenarios"), []);
-
   const getLevelScenarios = useCallback(
     (levelIndex) => {
       if (!scenarios.length) return [];
@@ -37,12 +34,18 @@ export function GameProvider({ children }) {
     [scenarios]
   );
 
-  const fetchScenarios = async () => {
+  /**
+   * Senaryoları her zaman buradan yüklüyoruz.
+   * Misafir / Google fark etmeksizin aynı endpoint ve aynı sıralama.
+   */
+  const fetchScenarios = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
+
       const res = await api.get("/api/scenarios");
       let data = res.data || [];
+
       // ID'ye göre sırala, 1–20 → 5'lik bloklar seviyelere dönüşsün
       data = [...data].sort((a, b) => (a.id || 0) - (b.id || 0));
       setScenarios(data);
@@ -75,13 +78,17 @@ export function GameProvider({ children }) {
     } finally {
       setLoading(false);
     }
-  };
-
-  // Eski tek-senaryo akışı için bırakıyorum; şu anda kullanmıyoruz ama dursun
-  const selectScenario = useCallback((scenario) => {
-    setCurrentScenario(scenario);
-    setScreen("game");
   }, []);
+
+  /**
+   * Oyuna başla → her zaman önce senaryoları yükler,
+   * sonra "scenarios" ekranına geçer.
+   * Misafir / Google giriş farkı tamamen ortadan kalkıyor.
+   */
+  const startGame = useCallback(async () => {
+    await fetchScenarios();
+    setScreen("scenarios");
+  }, [fetchScenarios]);
 
   const exitGame = useCallback(() => {
     setCurrentScenario(null);
@@ -195,7 +202,7 @@ export function GameProvider({ children }) {
 
         // Akış fonksiyonları
         startGame,
-        fetchScenarios,
+        fetchScenarios, // istersen ScenariosScreen'de tekrar dene butonunda kullanabilirsin
         selectScenario,
         exitGame,
         setScreen,
