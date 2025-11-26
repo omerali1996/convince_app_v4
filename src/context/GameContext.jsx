@@ -88,7 +88,7 @@ export function GameProvider({ children }) {
     setScreen("scenarios");
   }, []);
 
-  // Bir seviyeyi başlat (veya tekrar başlat)
+  // Bir seviyeyi başlat (veya tekrar başlat) → 0. indexten
   const startLevel = useCallback(
     (levelIndex = 0) => {
       const levelScens = getLevelScenarios(levelIndex);
@@ -97,6 +97,26 @@ export function GameProvider({ children }) {
       setCurrentLevelIndex(levelIndex);
       setCurrentScenarioIndex(0);
       setCurrentScenario(levelScens[0]);
+      setScreen("game");
+    },
+    [getLevelScenarios]
+  );
+
+  // 🔥 YENİ: Seviyenin içinden istenen senaryoyu başlat
+  const startScenario = useCallback(
+    (levelIndex, scenarioIndex) => {
+      const levelScens = getLevelScenarios(levelIndex);
+      if (!levelScens.length) return;
+
+      const safeIndex = Math.max(
+        0,
+        Math.min(scenarioIndex, levelScens.length - 1)
+      );
+      const chosenScenario = levelScens[safeIndex];
+
+      setCurrentLevelIndex(levelIndex);
+      setCurrentScenarioIndex(safeIndex);
+      setCurrentScenario(chosenScenario);
       setScreen("game");
     },
     [getLevelScenarios]
@@ -202,6 +222,7 @@ export function GameProvider({ children }) {
         setError,
 
         startLevel,
+        startScenario,   // 🔥 YENİ EXPORT
         finishScenario,
         goToNextLevel,
       }}
