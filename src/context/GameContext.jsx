@@ -25,6 +25,7 @@ export function GameProvider({ children }) {
   // levelProgress: [{ successCount, playedCount, completed }, ...]
   const [levelProgress, setLevelProgress] = useState([]);
 
+  // Oyuna başla → her zaman level ekranına gitsin
   const startGame = useCallback(() => setScreen("scenarios"), []);
 
   const getLevelScenarios = useCallback(
