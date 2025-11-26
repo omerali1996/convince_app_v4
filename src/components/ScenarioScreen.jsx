@@ -7,7 +7,6 @@ import remarkGfm from "remark-gfm";
 export default function ScenariosScreen() {
   const {
     scenarios,
-    fetchScenarios,
     loading,
     error,
     getLevelScenarios,
@@ -19,9 +18,7 @@ export default function ScenariosScreen() {
   const [selectedLevel, setSelectedLevel] = useState(0);
   const [expandedScenarioIds, setExpandedScenarioIds] = useState([]);
 
-  useEffect(() => {
-    fetchScenarios();
-  }, []); // eslint-disable-line
+  // Artık fetchScenarios burada çağrılmıyor; senaryolar GameContext.startGame içinde yükleniyor.
 
   useEffect(() => {
     setSelectedLevel(currentLevelIndex || 0);
@@ -248,114 +245,4 @@ const headerRow = {
   justifyContent: "space-between",
 };
 
-const title = { fontSize: 22, fontWeight: 600, color: "var(--text)" };
-
-const listCol = {
-  display: "flex",
-  flexDirection: "column",
-  gap: 10,
-  paddingRight: 6,
-  maxHeight: 420,
-};
-
-const detailCol = { minHeight: 360 };
-
-const detailCard = {
-  height: "100%",
-  padding: 16,
-  background: "var(--card)",
-  borderRadius: 16,
-  border: "1px solid rgba(255,255,255,.06)",
-  boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  overflowY: "auto",
-};
-
-const scenarioTitle = {
-  fontSize: 20,
-  fontWeight: 600,
-  color: "var(--accent)",
-  marginBottom: 12,
-  borderBottom: "1px solid rgba(255,255,255,.1)",
-  paddingBottom: 6,
-};
-
-const storyBox = {
-  marginTop: 8,
-  background: "rgba(255,255,255,0.03)",
-  padding: 12,
-  borderRadius: 12,
-  position: "relative",
-};
-
-const storyHeader = {
-  fontSize: 16,
-  marginBottom: 6,
-  color: "var(--accent)",
-  borderBottom: "1px solid rgba(255,255,255,0.1)",
-  paddingBottom: 4,
-};
-
-const storyText = {
-  margin: 0,
-  color: "rgba(255,255,255,0.9)",
-  lineHeight: 1.6,
-  fontSize: 14,
-};
-
-const buttonRow = {
-  display: "flex",
-  gap: 8,
-  marginTop: 16,
-  justifyContent: "flex-end",
-};
-
-const emptyDetail = {
-  height: "100%",
-  display: "grid",
-  placeItems: "center",
-  color: "var(--muted)",
-  border: "1px dashed rgba(255,255,255,.12)",
-  borderRadius: 16,
-  fontStyle: "italic",
-};
-
-const status = {
-  padding: 20,
-  textAlign: "center",
-  fontSize: 18,
-  color: "var(--muted)",
-};
-
-const levelBtn = (isSelected, completed) => ({
-  justifyContent: "space-between",
-  width: "100%",
-  background: isSelected ? "#182242" : "#161d36",
-  border: completed
-    ? "1px solid rgba(0, 200, 130, .7)"
-    : "1px solid rgba(255,255,255,.08)",
-  textAlign: "left",
-  padding: "10px 12px",
-  borderRadius: 10,
-  transition: "all .2s ease",
-  cursor: "pointer",
-  color: "var(--text)",
-  fontWeight: isSelected ? 600 : 400,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-});
-
-const showMoreBtn = {
-  marginTop: 4,
-  fontSize: 12,
-  background: "transparent",
-  border: "none",
-  padding: 0,
-  color: "var(--accent)",
-  cursor: "pointer",
-  textDecoration: "underline",
-  alignSelf: "flex-start",
-};
+const title = { fontSize: 2
