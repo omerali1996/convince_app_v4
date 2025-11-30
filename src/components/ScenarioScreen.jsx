@@ -125,7 +125,7 @@ export default function ScenariosScreen() {
                 </h3>
 
                 <div style={storyBox}>
-                  <h4 style={storyHeader}>📖 Bu seviyede</h4>
+                  <h4 style={storyHeader}>📖 Senaryolar </h4>
                   <p style={storyText}>
                     Bu seviyede{" "}
                     <strong>{totalInLevel}</strong> senaryo
@@ -141,7 +141,6 @@ export default function ScenariosScreen() {
                     }}
                   />
                   <div style={storyText}>
-                    <strong>Senaryolar:</strong>
                     <ul style={{ marginTop: 8, paddingLeft: 18 }}>
                       {levelScenarios.map((s, sIdx) => {
                         const isExpanded =
@@ -392,3 +391,4 @@ const playScenarioBtn = {
   padding: "6px 10px",
   borderRadius: 999,
 };
+
