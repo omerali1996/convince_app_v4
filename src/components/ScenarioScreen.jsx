@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useGame } from "../context/GameContext";
-import { useAuth } from "../context/AuthContext"; // ⭐ YENİ
+import { useAuth } from "../context/AuthContext"; // ⭐
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -16,10 +16,10 @@ export default function ScenariosScreen() {
     startLevel,
     startScenario,
     currentLevelIndex,
-    setScreen, // ⭐ YENİ
+    setScreen,
   } = useGame();
 
-  const { logout } = useAuth(); // ⭐ YENİ (user'a ihtiyacımız yok)
+  const { user, logout } = useAuth(); // ⭐ user + logout
 
   const [selectedLevel, setSelectedLevel] = useState(0);
   const [expandedScenarioIds, setExpandedScenarioIds] = useState([]);
@@ -66,10 +66,10 @@ export default function ScenariosScreen() {
     );
   };
 
-  // ⭐ Kullanıcıyı değiştir → logout + WelcomeScreen
+  // ⭐ Hesap değiştir → WelcomeScreen'e dön
   const handleSwitchUser = () => {
-    logout();             // AuthContext: kullanıcıyı sıfırla
-    setScreen("welcome"); // GameContext: WelcomeScreen'e dön
+    logout();
+    setScreen("welcome");
   };
 
   return (
@@ -77,15 +77,32 @@ export default function ScenariosScreen() {
       <div style={headerRow}>
         <h2 style={title}>Seviyeler</h2>
 
-        {/* ⭐ Her zaman göster, login olsun olmasın (misafirde de çalışır) */}
-        <button
-          type="button"
-          className="btn btn-secondary"
-          style={switchUserBtn}
-          onClick={handleSwitchUser}
-        >
-          Kullanıcıyı değiştir
-        </button>
+        {/* ⭐ Sağ üstte profesyonel profil alanı */}
+        {user && (
+          <div style={userBar}>
+            {user.picture && (
+              <img
+                src={user.picture}
+                alt={user.name}
+                style={userAvatar}
+                width={30}
+                height={30}
+              />
+            )}
+            <div style={userTextBox}>
+              <span style={userLabel}>Giriş yapıldı</span>
+              <span style={userName}>{user.name}</span>
+            </div>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              style={switchUserBtn}
+              onClick={handleSwitchUser}
+            >
+              Hesabı değiştir
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="grid-2">
@@ -184,10 +201,7 @@ export default function ScenariosScreen() {
                                 className="btn btn-secondary"
                                 style={playScenarioBtn}
                                 onClick={() =>
-                                  startScenario(
-                                    selectedLevel,
-                                    sIdx
-                                  )
+                                  startScenario(selectedLevel, sIdx)
                                 }
                               >
                                 Bu senaryoyu oyna
@@ -205,9 +219,7 @@ export default function ScenariosScreen() {
                                   : "linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0))",
                               }}
                             >
-                              <ReactMarkdown
-                                remarkPlugins={[remarkGfm]}
-                              >
+                              <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                 {s.story}
                               </ReactMarkdown>
                             </div>
@@ -280,9 +292,44 @@ const headerRow = {
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
+  marginBottom: 4,
 };
 
 const title = { fontSize: 22, fontWeight: 600, color: "var(--text)" };
+
+const userBar = {
+  display: "flex",
+  alignItems: "center",
+  gap: 10,
+  padding: "6px 10px",
+  background: "rgba(13, 19, 48, 0.9)",
+  borderRadius: 999,
+  border: "1px solid rgba(255,255,255,0.07)",
+};
+
+const userAvatar = {
+  borderRadius: "50%",
+  objectFit: "cover",
+};
+
+const userTextBox = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  gap: 2,
+};
+
+const userLabel = {
+  fontSize: 10,
+  textTransform: "uppercase",
+  letterSpacing: "0.7px",
+  opacity: 0.7,
+};
+
+const userName = {
+  fontSize: 13,
+  fontWeight: 600,
+};
 
 const listCol = {
   display: "flex",
@@ -401,10 +448,8 @@ const playScenarioBtn = {
 };
 
 const switchUserBtn = {
-  fontSize: 12,
+  fontSize: 11,
   padding: "6px 10px",
   borderRadius: 999,
-  display: "flex",
-  alignItems: "center",
-  gap: 6,
+  whiteSpace: "nowrap",
 };
