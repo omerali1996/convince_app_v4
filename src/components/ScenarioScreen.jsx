@@ -19,7 +19,7 @@ export default function ScenariosScreen() {
     setScreen, // ⭐ YENİ
   } = useGame();
 
-  const { user, logout } = useAuth(); // ⭐ YENİ
+  const { logout } = useAuth(); // ⭐ YENİ (user'a ihtiyacımız yok)
 
   const [selectedLevel, setSelectedLevel] = useState(0);
   const [expandedScenarioIds, setExpandedScenarioIds] = useState([]);
@@ -66,10 +66,10 @@ export default function ScenariosScreen() {
     );
   };
 
-  // ⭐ Kullanıcıyı değiştir → WelcomeScreen'e dön
+  // ⭐ Kullanıcıyı değiştir → logout + WelcomeScreen
   const handleSwitchUser = () => {
-    logout();               // AuthContext: kullanıcıyı sıfırla
-    setScreen("welcome");   // GameContext: WelcomeScreen'e dön
+    logout();             // AuthContext: kullanıcıyı sıfırla
+    setScreen("welcome"); // GameContext: WelcomeScreen'e dön
   };
 
   return (
@@ -77,17 +77,15 @@ export default function ScenariosScreen() {
       <div style={headerRow}>
         <h2 style={title}>Seviyeler</h2>
 
-        {/* ⭐ Sadece login'li kullanıcı varsa göster */}
-        {user && (
-          <button
-            type="button"
-            className="btn btn-secondary"
-            style={switchUserBtn}
-            onClick={handleSwitchUser}
-          >
-            Kullanıcıyı değiştir
-          </button>
-        )}
+        {/* ⭐ Her zaman göster, login olsun olmasın (misafirde de çalışır) */}
+        <button
+          type="button"
+          className="btn btn-secondary"
+          style={switchUserBtn}
+          onClick={handleSwitchUser}
+        >
+          Kullanıcıyı değiştir
+        </button>
       </div>
 
       <div className="grid-2">
