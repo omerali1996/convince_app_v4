@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useGame } from "../context/GameContext";
+import { useAuth } from "../context/AuthContext"; // ⭐ YENİ
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -13,9 +14,12 @@ export default function ScenariosScreen() {
     getLevelScenarios,
     levelProgress,
     startLevel,
-    startScenario,     // 🔥 YENİ: context’ten al
+    startScenario,
     currentLevelIndex,
+    setScreen, // ⭐ YENİ
   } = useGame();
+
+  const { user, logout } = useAuth(); // ⭐ YENİ
 
   const [selectedLevel, setSelectedLevel] = useState(0);
   const [expandedScenarioIds, setExpandedScenarioIds] = useState([]);
@@ -62,10 +66,28 @@ export default function ScenariosScreen() {
     );
   };
 
+  // ⭐ Kullanıcıyı değiştir → WelcomeScreen'e dön
+  const handleSwitchUser = () => {
+    logout();               // AuthContext: kullanıcıyı sıfırla
+    setScreen("welcome");   // GameContext: WelcomeScreen'e dön
+  };
+
   return (
     <div style={container}>
       <div style={headerRow}>
         <h2 style={title}>Seviyeler</h2>
+
+        {/* ⭐ Sadece login'li kullanıcı varsa göster */}
+        {user && (
+          <button
+            type="button"
+            className="btn btn-secondary"
+            style={switchUserBtn}
+            onClick={handleSwitchUser}
+          >
+            Kullanıcıyı değiştir
+          </button>
+        )}
       </div>
 
       <div className="grid-2">
@@ -89,9 +111,7 @@ export default function ScenariosScreen() {
                 className="btn btn-secondary"
                 style={levelBtn(isSelected, completed)}
               >
-                <div style={{ fontWeight: 600 }}>
-                  Seviye {idx + 1}
-                </div>
+                <div style={{ fontWeight: 600 }}>Seviye {idx + 1}</div>
                 <div
                   style={{
                     fontSize: 12,
@@ -120,19 +140,14 @@ export default function ScenariosScreen() {
                 transition={{ duration: 0.25 }}
                 style={detailCard}
               >
-                <h3 style={scenarioTitle}>
-                  Seviye {selectedLevel + 1}
-                </h3>
+                <h3 style={scenarioTitle}>Seviye {selectedLevel + 1}</h3>
 
                 <div style={storyBox}>
                   <h4 style={storyHeader}>📖 Senaryolar </h4>
                   <p style={storyText}>
-                    Bu seviyede{" "}
-                    <strong>{totalInLevel}</strong> senaryo
-                    oynayacaksın. En az{" "}
-                    <strong>{neededSuccess}</strong>{" "}
-                    senaryoyu başarıyla tamamlarsan seviye
-                    geçmiş sayılacaksın.
+                    Bu seviyede <strong>{totalInLevel}</strong> senaryo
+                    oynayacaksın. En az <strong>{neededSuccess}</strong>{" "}
+                    senaryoyu başarıyla tamamlarsan seviye geçmiş sayılacaksın.
                   </p>
                   <hr
                     style={{
@@ -147,10 +162,7 @@ export default function ScenariosScreen() {
                           expandedScenarioIds.includes(s.id);
 
                         return (
-                          <li
-                            key={s.id}
-                            style={{ marginBottom: 12 }}
-                          >
+                          <li key={s.id} style={{ marginBottom: 12 }}>
                             <div
                               style={{
                                 display: "flex",
@@ -249,9 +261,7 @@ export default function ScenariosScreen() {
                 </div>
               </motion.div>
             ) : (
-              <div style={emptyDetail}>
-                Bir seviye seçin.
-              </div>
+              <div style={emptyDetail}>Bir seviye seçin.</div>
             )}
           </AnimatePresence>
         </div>
@@ -392,3 +402,11 @@ const playScenarioBtn = {
   borderRadius: 999,
 };
 
+const switchUserBtn = {
+  fontSize: 12,
+  padding: "6px 10px",
+  borderRadius: 999,
+  display: "flex",
+  alignItems: "center",
+  gap: 6,
+};
