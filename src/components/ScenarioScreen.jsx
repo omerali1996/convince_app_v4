@@ -224,6 +224,7 @@ const scenariosContainer = {
 
 const detailContainer = {
   padding: "24px",
+  paddingBottom: "40px",
   height: "100%",
   display: "flex",
   flexDirection: "column",
@@ -234,6 +235,7 @@ const scenariosList = {
   display: "flex",
   flexDirection: "column",
   gap: "16px",
+  marginBottom: "24px",
 };
 
 const scenarioCard = {
