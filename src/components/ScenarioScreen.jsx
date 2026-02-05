@@ -112,15 +112,17 @@ export default function ScenariosScreen() {
                           <div
                             style={{
                               ...storyContent,
-                              maxHeight: isExpanded ? "none" : "80px",
+                              maxHeight: isExpanded ? "none" : "60px",
                               maskImage: isExpanded
                                 ? "none"
-                                : "linear-gradient(to bottom, rgba(0,0,0,1) 60%, transparent)",
+                                : "linear-gradient(to bottom, rgba(0,0,0,1) 50%, transparent)",
                             }}
                           >
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                              {s.story}
-                            </ReactMarkdown>
+                            <div style={storyTextOnly} className="storyTextOnly">
+                              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {s.story}
+                              </ReactMarkdown>
+                            </div>
                           </div>
                           
                           <motion.button
@@ -308,6 +310,12 @@ const storyContent = {
   overflowWrap: "break-word",
 };
 
+const storyTextOnly = {
+  fontSize: "15px",
+  lineHeight: "1.7",
+  color: "#cbd5e0",
+};
+
 const expandButton = {
   background: "rgba(99, 102, 241, 0.08)",
   border: "1px solid rgba(99, 102, 241, 0.3)",
@@ -397,6 +405,16 @@ const globalCSS = `
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Hide all headings in story content - only show paragraph text */
+.storyTextOnly h1,
+.storyTextOnly h2,
+.storyTextOnly h3,
+.storyTextOnly h4,
+.storyTextOnly h5,
+.storyTextOnly h6 {
+  display: none !important;
 }
 
 /* Sleek custom scrollbar for desktop */
