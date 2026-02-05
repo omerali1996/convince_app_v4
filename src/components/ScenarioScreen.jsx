@@ -23,6 +23,17 @@ export default function ScenariosScreen() {
     fetchScenarios();
   }, [fetchScenarios]);
 
+  // Remove markdown headings from story text
+  const removeMarkdownHeadings = (text) => {
+    if (!text) return text;
+    // Remove lines that start with # (markdown headings)
+    return text
+      .split('\n')
+      .filter(line => !line.trim().match(/^#{1,6}\s/))
+      .join('\n')
+      .trim();
+  };
+
   if (loading) return <div style={loadingContainer}>
     <div style={loadingSpinner}></div>
     <div style={loadingText}>Yükleniyor…</div>
@@ -118,9 +129,9 @@ export default function ScenariosScreen() {
                                 : "linear-gradient(to bottom, rgba(0,0,0,1) 50%, transparent)",
                             }}
                           >
-                            <div style={storyTextOnly} className="storyTextOnly">
+                            <div style={storyTextOnly}>
                               <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                {s.story}
+                                {removeMarkdownHeadings(s.story)}
                               </ReactMarkdown>
                             </div>
                           </div>
@@ -405,16 +416,6 @@ const globalCSS = `
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-/* Hide all headings in story content - only show paragraph text */
-.storyTextOnly h1,
-.storyTextOnly h2,
-.storyTextOnly h3,
-.storyTextOnly h4,
-.storyTextOnly h5,
-.storyTextOnly h6 {
-  display: none !important;
 }
 
 /* Sleek custom scrollbar for desktop */
