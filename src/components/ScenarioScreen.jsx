@@ -189,18 +189,17 @@ const title = {
 };
 
 const switchUserBtn = {
-  background: "linear-gradient(135deg, #ff6b6b, #ffa500)",
-  border: "none",
-  borderRadius: "25px",
-  padding: "8px 16px",
-  color: "white",
+  background: "#0b0638",
+  border: "1px solid rgba(255, 255, 255, 0.2)",
+  borderRadius: "12px",
+  padding: "6px 12px",
+  color: "#ffffff",
   fontWeight: "600",
-  fontSize: "14px",
+  fontSize: "12px",
   cursor: "pointer",
   display: "flex",
   alignItems: "center",
   gap: "6px",
-  boxShadow: "0 4px 15px rgba(255, 107, 107, 0.3)",
   transition: "all 0.2s ease",
 };
 
@@ -271,18 +270,18 @@ const scenarioNumber = {
 };
 
 const playButton = {
-  background: "linear-gradient(135deg, #48bb78, #38a169)",
-  color: "white",
-  border: "none",
-  borderRadius: "12px",
-  padding: "8px 16px",
+  background: "#0b0638",
+  color: "#ffffff",
+  border: "1px solid rgba(255, 255, 255, 0.2)",
+  borderRadius: "10px",
+  padding: "6px 12px",
   fontWeight: "600",
-  fontSize: "14px",
+  fontSize: "12px",
   cursor: "pointer",
   display: "flex",
   alignItems: "center",
   gap: "6px",
-  boxShadow: "0 2px 8px rgba(72, 187, 120, 0.3)",
+  transition: "all 0.2s ease",
 };
 
 const scenarioStory = {
