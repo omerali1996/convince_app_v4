@@ -88,7 +88,6 @@ export default function ScenariosScreen() {
                       transition={{ delay: sIdx * 0.1 }}
                     >
                       <div style={scenarioCardHeader}>
-                        <div style={scenarioIcon}>🎲</div>
                         <div style={scenarioInfo}>
                           <h3 style={scenarioName}>{s.name}</h3>
                           <div style={scenarioNumber}>Senaryo {sIdx + 1}</div>
@@ -244,9 +243,6 @@ const scenarioCard = {
   boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)",
   border: "1px solid rgba(255, 255, 255, 0.3)",
   minHeight: "120px",
-  maxHeight: "140px",
-  display: "flex",
-  flexDirection: "column",
 };
 
 const scenarioCardHeader = {
@@ -254,12 +250,6 @@ const scenarioCardHeader = {
   alignItems: "center",
   gap: "12px",
   marginBottom: "12px",
-};
-
-const scenarioIcon = {
-  fontSize: "24px",
-  minWidth: "32px",
-  textAlign: "center",
 };
 
 const scenarioInfo = {
@@ -300,8 +290,6 @@ const playIcon = {
 
 const scenarioStory = {
   marginTop: "12px",
-  flex: 1,
-  overflow: "hidden",
 };
 
 const storyContent = {
