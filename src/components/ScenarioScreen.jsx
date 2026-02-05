@@ -29,12 +29,10 @@ export default function ScenariosScreen() {
   </div>;
   
   if (error) return <div style={errorContainer}>
-    <div style={errorIcon}>⚠️</div>
     <div style={errorText}>{error}</div>
   </div>;
   
   if (!scenarios.length) return <div style={emptyContainer}>
-    <div style={emptyIcon}>🎯</div>
     <div style={emptyText}>Senaryo bulunamadı.</div>
   </div>;
 
@@ -53,13 +51,12 @@ export default function ScenariosScreen() {
     <div style={container}>
       <div style={header}>
         <div style={headerContent}>
-          <h1 style={title}>🎮 Senaryolar</h1>
+          <h1 style={title}>Senaryolar</h1>
           <button
             type="button"
             style={switchUserBtn}
             onClick={handleSwitchUser}
           >
-            <span style={switchIcon}>👤</span>
             Kullanıcıyı Değiştir
           </button>
         </div>
@@ -98,7 +95,6 @@ export default function ScenariosScreen() {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                         >
-                          <span style={playIcon}>▶️</span>
                           Oyna
                         </motion.button>
                       </div>
@@ -124,9 +120,6 @@ export default function ScenariosScreen() {
                             onClick={() => toggleScenarioExpand(s.id)}
                             whileHover={{ scale: 1.02 }}
                           >
-                            <span style={expandIcon}>
-                              {isExpanded ? "🔼" : "🔽"}
-                            </span>
                             {isExpanded ? "Daha az göster" : "Daha fazla göster"}
                           </motion.button>
                         </div>
@@ -203,10 +196,6 @@ const switchUserBtn = {
   transition: "all 0.2s ease",
 };
 
-const switchIcon = {
-  fontSize: "16px",
-};
-
 const mainContent = {
   maxWidth: "1200px",
   margin: "0 auto",
@@ -239,11 +228,11 @@ const scenariosList = {
 };
 
 const scenarioCard = {
-  background: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+  background: "#0e0846",
   borderRadius: "16px",
   padding: "20px",
-  boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)",
-  border: "1px solid rgba(255, 255, 255, 0.3)",
+  boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
+  border: "1px solid rgba(255, 255, 255, 0.1)",
   minHeight: "120px",
 };
 
@@ -262,12 +251,12 @@ const scenarioName = {
   fontSize: "16px",
   fontWeight: "700",
   margin: "0 0 4px 0",
-  color: "#2d3748",
+  color: "#ffffff",
 };
 
 const scenarioNumber = {
   fontSize: "12px",
-  color: "#718096",
+  color: "#a0aec0",
   fontWeight: "500",
 };
 
@@ -286,10 +275,6 @@ const playButton = {
   boxShadow: "0 2px 8px rgba(72, 187, 120, 0.3)",
 };
 
-const playIcon = {
-  fontSize: "12px",
-};
-
 const scenarioStory = {
   marginTop: "12px",
 };
@@ -297,7 +282,7 @@ const scenarioStory = {
 const storyContent = {
   fontSize: "14px",
   lineHeight: "1.6",
-  color: "#4a5568",
+  color: "#cbd5e0",
   overflow: "hidden",
   transition: "max-height 0.3s ease",
 };
@@ -305,7 +290,7 @@ const storyContent = {
 const expandButton = {
   background: "transparent",
   border: "none",
-  color: "#060424",
+  color: "#a0aec0",
   fontSize: "12px",
   fontWeight: "600",
   cursor: "pointer",
@@ -316,10 +301,6 @@ const expandButton = {
   padding: "4px 8px",
   borderRadius: "8px",
   transition: "background 0.2s ease",
-};
-
-const expandIcon = {
-  fontSize: "10px",
 };
 
 const loadingContainer = {
@@ -358,10 +339,6 @@ const errorContainer = {
   padding: "20px",
 };
 
-const errorIcon = {
-  fontSize: "48px",
-};
-
 const errorText = {
   color: "white",
   fontSize: "16px",
@@ -377,10 +354,6 @@ const emptyContainer = {
   justifyContent: "center",
   gap: "16px",
   background: "#060424",
-};
-
-const emptyIcon = {
-  fontSize: "48px",
 };
 
 const emptyText = {
