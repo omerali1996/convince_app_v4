@@ -147,14 +147,14 @@ const container = {
 };
 
 const header = {
-  background: "rgba(255, 255, 255, 0.95)",
+  background: "#0a0635",
   backdropFilter: "blur(20px)",
-  borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
   padding: "12px 0",
   position: "sticky",
   top: 0,
   zIndex: 100,
-  boxShadow: "0 2px 20px rgba(0, 0, 0, 0.1)",
+  boxShadow: "0 2px 20px rgba(0, 0, 0, 0.3)",
   borderRadius: "20px",
   margin: "0 16px",
 };
@@ -174,10 +174,7 @@ const title = {
   fontSize: "clamp(20px, 5vw, 28px)",
   fontWeight: "800",
   margin: 0,
-  background: "linear-gradient(135deg, #060424, #1a1844)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
-  backgroundClip: "text",
+  color: "#ffffff",
 };
 
 const switchUserBtn = {
