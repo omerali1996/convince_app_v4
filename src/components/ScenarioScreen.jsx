@@ -146,10 +146,11 @@ export default function ScenariosScreen() {
 /* ---------- Styles ---------- */
 const container = {
   minHeight: "100vh",
-  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  background: "#060424",
   fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
   color: "#2d3748",
   overflow: "hidden",
+  padding: "20px 0",
 };
 
 const header = {
@@ -178,7 +179,7 @@ const title = {
   fontSize: "clamp(20px, 5vw, 28px)",
   fontWeight: "800",
   margin: 0,
-  background: "linear-gradient(135deg, #667eea, #764ba2)",
+  background: "linear-gradient(135deg, #060424, #1a1844)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
   backgroundClip: "text",
@@ -207,8 +208,7 @@ const switchIcon = {
 const mainContent = {
   maxWidth: "1200px",
   margin: "0 auto",
-  padding: "20px 16px",
-  height: "calc(100vh - 80px)",
+  padding: "30px 16px",
 };
 
 const scenariosContainer = {
@@ -218,14 +218,12 @@ const scenariosContainer = {
   boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
   border: "1px solid rgba(255, 255, 255, 0.3)",
   overflowY: "auto",
-  maxHeight: "100%",
-  height: "100%",
+  maxHeight: "calc(100vh - 160px)",
 };
 
 const detailContainer = {
   padding: "24px",
   paddingBottom: "40px",
-  height: "100%",
   display: "flex",
   flexDirection: "column",
 };
@@ -305,7 +303,7 @@ const storyContent = {
 const expandButton = {
   background: "transparent",
   border: "none",
-  color: "#667eea",
+  color: "#060424",
   fontSize: "12px",
   fontWeight: "600",
   cursor: "pointer",
@@ -329,7 +327,7 @@ const loadingContainer = {
   alignItems: "center",
   justifyContent: "center",
   gap: "20px",
-  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  background: "#060424",
 };
 
 const loadingSpinner = {
@@ -354,7 +352,7 @@ const errorContainer = {
   alignItems: "center",
   justifyContent: "center",
   gap: "16px",
-  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  background: "#060424",
   padding: "20px",
 };
 
@@ -376,7 +374,7 @@ const emptyContainer = {
   alignItems: "center",
   justifyContent: "center",
   gap: "16px",
-  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  background: "#060424",
 };
 
 const emptyIcon = {
