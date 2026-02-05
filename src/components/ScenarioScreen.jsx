@@ -129,9 +129,11 @@ export default function ScenariosScreen() {
                               e.stopPropagation();
                               toggleScenarioExpand(s.id);
                             }}
-                            whileHover={{ scale: 1.02 }}
+                            whileHover={{ scale: 1.02, backgroundColor: "rgba(99, 102, 241, 0.15)" }}
+                            whileTap={{ scale: 0.98 }}
                           >
-                            {isExpanded ? "Daha az göster" : "Daha fazla göster"}
+                            <span style={expandButtonIcon}>{isExpanded ? "−" : "+"}</span>
+                            {isExpanded ? "Daha az göster" : "Devamını oku"}
                           </motion.button>
                         </div>
                       )}
@@ -297,19 +299,26 @@ const storyContent = {
 };
 
 const expandButton = {
-  background: "transparent",
-  border: "none",
-  color: "#a0aec0",
-  fontSize: "12px",
+  background: "rgba(99, 102, 241, 0.08)",
+  border: "1px solid rgba(99, 102, 241, 0.3)",
+  color: "#a5b4fc",
+  fontSize: "13px",
   fontWeight: "600",
   cursor: "pointer",
-  marginTop: "8px",
+  marginTop: "12px",
   display: "flex",
   alignItems: "center",
-  gap: "4px",
-  padding: "4px 8px",
-  borderRadius: "8px",
-  transition: "background 0.2s ease",
+  gap: "6px",
+  padding: "8px 14px",
+  borderRadius: "10px",
+  transition: "all 0.2s ease",
+  letterSpacing: "0.3px",
+};
+
+const expandButtonIcon = {
+  fontSize: "16px",
+  fontWeight: "700",
+  lineHeight: "1",
 };
 
 const loadingContainer = {
@@ -376,6 +385,33 @@ const globalCSS = `
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Sleek custom scrollbar */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(165, 180, 252, 0.3);
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(165, 180, 252, 0.5);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(165, 180, 252, 0.3) rgba(255, 255, 255, 0.03);
 }
 
 @media (max-width: 768px) {
