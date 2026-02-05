@@ -47,6 +47,10 @@ export default function ScenariosScreen() {
     setScreen("welcome");
   };
 
+  const handleScenarioClick = (sIdx) => {
+    startScenario(0, sIdx);
+  };
+
   return (
     <div style={container}>
       <div style={header}>
@@ -83,6 +87,7 @@ export default function ScenariosScreen() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: sIdx * 0.1 }}
+                      onClick={() => handleScenarioClick(sIdx)}
                     >
                       <div style={scenarioCardHeader}>
                         <div style={scenarioInfo}>
@@ -91,7 +96,10 @@ export default function ScenariosScreen() {
                         </div>
                         <motion.button
                           style={playButton}
-                          onClick={() => startScenario(0, sIdx)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            startScenario(0, sIdx);
+                          }}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                         >
@@ -117,7 +125,10 @@ export default function ScenariosScreen() {
                           
                           <motion.button
                             style={expandButton}
-                            onClick={() => toggleScenarioExpand(s.id)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleScenarioExpand(s.id);
+                            }}
                             whileHover={{ scale: 1.02 }}
                           >
                             {isExpanded ? "Daha az göster" : "Daha fazla göster"}
@@ -147,7 +158,7 @@ const container = {
 };
 
 const header = {
-  background: "#0a0635",
+  background: "#080530",
   backdropFilter: "blur(20px)",
   borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
   padding: "12px 0",
@@ -200,7 +211,7 @@ const mainContent = {
 };
 
 const scenariosContainer = {
-  background: "#0a0635",
+  background: "#080530",
   backdropFilter: "blur(20px)",
   borderRadius: "20px",
   boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
@@ -225,12 +236,14 @@ const scenariosList = {
 };
 
 const scenarioCard = {
-  background: "#0e0846",
+  background: "#0b0638",
   borderRadius: "16px",
   padding: "20px",
   boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
   border: "1px solid rgba(255, 255, 255, 0.1)",
   minHeight: "120px",
+  cursor: "pointer",
+  transition: "all 0.2s ease",
 };
 
 const scenarioCardHeader = {
