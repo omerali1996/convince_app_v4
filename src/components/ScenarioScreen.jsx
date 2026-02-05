@@ -150,7 +150,7 @@ const container = {
   fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
   color: "#2d3748",
   overflow: "hidden",
-  padding: "20px 0",
+  padding: "12px 0",
 };
 
 const header = {
@@ -208,17 +208,17 @@ const switchIcon = {
 const mainContent = {
   maxWidth: "1200px",
   margin: "0 auto",
-  padding: "30px 16px",
+  padding: "16px",
 };
 
 const scenariosContainer = {
-  background: "rgba(255, 255, 255, 0.95)",
+  background: "#0a0635",
   backdropFilter: "blur(20px)",
   borderRadius: "20px",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
-  border: "1px solid rgba(255, 255, 255, 0.3)",
+  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+  border: "1px solid rgba(255, 255, 255, 0.1)",
   overflowY: "auto",
-  maxHeight: "calc(100vh - 160px)",
+  maxHeight: "calc(100vh - 140px)",
 };
 
 const detailContainer = {
