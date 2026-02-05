@@ -156,26 +156,23 @@ const container = {
   fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
   color: "#2d3748",
   overflow: "hidden",
-  padding: "12px 0",
+  padding: "0",
 };
 
 const header = {
   background: "#080530",
   backdropFilter: "blur(20px)",
   borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-  padding: "12px 0",
+  padding: "16px",
   position: "sticky",
   top: 0,
   zIndex: 100,
   boxShadow: "0 2px 20px rgba(0, 0, 0, 0.3)",
-  borderRadius: "20px",
-  margin: "0 16px",
 };
 
 const headerContent = {
   maxWidth: "1200px",
   margin: "0 auto",
-  padding: "0 16px",
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
@@ -184,7 +181,7 @@ const headerContent = {
 };
 
 const title = {
-  fontSize: "clamp(20px, 5vw, 28px)",
+  fontSize: "clamp(24px, 6vw, 32px)",
   fontWeight: "800",
   margin: 0,
   color: "#ffffff",
@@ -194,36 +191,39 @@ const switchUserBtn = {
   background: "#0b0638",
   border: "1px solid rgba(255, 255, 255, 0.2)",
   borderRadius: "12px",
-  padding: "6px 12px",
+  padding: "10px 16px",
   color: "#ffffff",
   fontWeight: "600",
-  fontSize: "12px",
+  fontSize: "14px",
   cursor: "pointer",
   display: "flex",
   alignItems: "center",
   gap: "6px",
   transition: "all 0.2s ease",
+  whiteSpace: "nowrap",
 };
 
 const mainContent = {
   maxWidth: "1200px",
   margin: "0 auto",
-  padding: "16px",
+  padding: "0",
+  height: "calc(100vh - 80px)",
 };
 
 const scenariosContainer = {
-  background: "#080530",
-  backdropFilter: "blur(20px)",
-  borderRadius: "20px",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
-  border: "1px solid rgba(255, 255, 255, 0.1)",
+  background: "transparent",
+  backdropFilter: "none",
+  borderRadius: "0",
+  boxShadow: "none",
+  border: "none",
   overflowY: "auto",
-  maxHeight: "calc(100vh - 140px)",
+  overflowX: "hidden",
+  height: "100%",
+  padding: "16px",
+  WebkitOverflowScrolling: "touch",
 };
 
 const detailContainer = {
-  padding: "24px",
-  paddingBottom: "40px",
   display: "flex",
   flexDirection: "column",
 };
@@ -233,7 +233,7 @@ const scenariosList = {
   display: "flex",
   flexDirection: "column",
   gap: "16px",
-  marginBottom: "24px",
+  paddingBottom: "24px",
 };
 
 const scenarioCard = {
@@ -242,48 +242,56 @@ const scenarioCard = {
   padding: "20px",
   boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
   border: "1px solid rgba(255, 255, 255, 0.1)",
-  minHeight: "120px",
+  minHeight: "auto",
   cursor: "pointer",
   transition: "all 0.2s ease",
+  width: "100%",
+  boxSizing: "border-box",
 };
 
 const scenarioCardHeader = {
   display: "flex",
-  alignItems: "center",
+  alignItems: "flex-start",
   gap: "12px",
   marginBottom: "12px",
+  flexWrap: "wrap",
 };
 
 const scenarioInfo = {
   flex: 1,
+  minWidth: "0",
 };
 
 const scenarioName = {
-  fontSize: "16px",
+  fontSize: "clamp(18px, 4.5vw, 22px)",
   fontWeight: "700",
-  margin: "0 0 4px 0",
+  margin: "0 0 6px 0",
   color: "#ffffff",
+  lineHeight: "1.3",
+  wordWrap: "break-word",
 };
 
 const scenarioNumber = {
-  fontSize: "12px",
+  fontSize: "13px",
   color: "#a0aec0",
   fontWeight: "500",
 };
 
 const playButton = {
-  background: "#0b0638",
+  background: "#6366f1",
   color: "#ffffff",
-  border: "1px solid rgba(255, 255, 255, 0.2)",
-  borderRadius: "10px",
-  padding: "6px 12px",
+  border: "none",
+  borderRadius: "12px",
+  padding: "10px 20px",
   fontWeight: "600",
-  fontSize: "12px",
+  fontSize: "14px",
   cursor: "pointer",
   display: "flex",
   alignItems: "center",
   gap: "6px",
   transition: "all 0.2s ease",
+  whiteSpace: "nowrap",
+  flexShrink: 0,
 };
 
 const scenarioStory = {
@@ -291,32 +299,36 @@ const scenarioStory = {
 };
 
 const storyContent = {
-  fontSize: "14px",
-  lineHeight: "1.6",
+  fontSize: "15px",
+  lineHeight: "1.7",
   color: "#cbd5e0",
   overflow: "hidden",
   transition: "max-height 0.3s ease",
+  wordWrap: "break-word",
+  overflowWrap: "break-word",
 };
 
 const expandButton = {
   background: "rgba(99, 102, 241, 0.08)",
   border: "1px solid rgba(99, 102, 241, 0.3)",
   color: "#a5b4fc",
-  fontSize: "13px",
+  fontSize: "14px",
   fontWeight: "600",
   cursor: "pointer",
   marginTop: "12px",
   display: "flex",
   alignItems: "center",
+  justifyContent: "center",
   gap: "6px",
-  padding: "8px 14px",
+  padding: "10px 16px",
   borderRadius: "10px",
   transition: "all 0.2s ease",
   letterSpacing: "0.3px",
+  width: "100%",
 };
 
 const expandButtonIcon = {
-  fontSize: "16px",
+  fontSize: "18px",
   fontWeight: "700",
   lineHeight: "1",
 };
@@ -387,36 +399,51 @@ const globalCSS = `
   100% { transform: rotate(360deg); }
 }
 
-/* Sleek custom scrollbar */
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Sleek custom scrollbar for desktop */
+@media (min-width: 769px) {
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: rgba(165, 180, 252, 0.3);
+    border-radius: 10px;
+    transition: background 0.2s ease;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: rgba(165, 180, 252, 0.5);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(165, 180, 252, 0.3) rgba(255, 255, 255, 0.03);
+  }
 }
 
-*::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 10px;
-}
+/* Hide scrollbar on mobile but keep functionality */
+@media (max-width: 768px) {
+  *::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    display: none;
+  }
 
-*::-webkit-scrollbar-thumb {
-  background: rgba(165, 180, 252, 0.3);
-  border-radius: 10px;
-  transition: background 0.2s ease;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: rgba(165, 180, 252, 0.5);
-}
-
-/* Firefox scrollbar */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(165, 180, 252, 0.3) rgba(255, 255, 255, 0.03);
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 }
 
 @media (max-width: 768px) {
-  .mainContent {
-    padding: 16px !important;
+  body {
+    overflow-x: hidden;
   }
 }
 `;
